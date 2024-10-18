@@ -22,3 +22,8 @@ vim.cmd [[
   autocmd BufRead,BufNewFile *.vert,*.frag,*.glsl set filetype=glsl
 ]]
 
+
+
+-- 啟用光標行和光標列
+vim.opt.cursorline = true
+vim.opt.cursorcolumn = true
