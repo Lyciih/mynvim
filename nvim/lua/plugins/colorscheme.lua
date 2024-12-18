@@ -30,6 +30,9 @@ return {
 				all = {
 					Search = { bg = "#3ddbd9", fg = "#000000" }, -- 所有搜尋匹配
                     IncSearch = { bg = "#FFD700", fg = "#000000" }, -- 當前匹配項
+					Visual = { bg = "#005f87", fg = "#ffffff" }, -- 選取文字時的顏色
+					CursorLine = { bg = "#505050" }, -- 光標所在行的背景顏色
+                    CursorColumn = { bg = "#505050" }, -- 光標所在列的背景顏色
 				},
 			},
         })
