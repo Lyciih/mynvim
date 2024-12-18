@@ -27,3 +27,8 @@ vim.cmd [[
 -- 啟用光標行和光標列
 vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
+
+-- 啟用增量搜尋
+set incsearch
+
+
