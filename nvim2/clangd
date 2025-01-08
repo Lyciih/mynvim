@@ -1,0 +1,32 @@
+# =============================
+# Clangd 全局配置文件 (.clangd)
+# =============================
+# 此文件需放置於用戶的主目錄 (~/) 中，並設為隱藏檔案 (.clangd)。
+# 它適用於所有使用 clangd 的項目，無需每個項目單獨配置。
+# 若需要針對特定項目進行單獨配置，可在項目根目錄中創建 compile_flags.txt 或 compile_commands.json 文件。
+#
+# 功能：
+# - 添加 GCC 的標準庫和系統頭文件路徑，確保 clangd 正確解析系統相關代碼。
+# - 添加項目的本地頭文件路徑，解析項目代碼中的自定義標頭文件。
+#
+# 使用方法：
+# 1. 將此文件保存為 ~/.clangd（注意是隱藏文件）。
+# 2. 重啟你的編輯器（如 Neovim 或 VSCode），以加載新配置。
+# =============================
+
+CompileFlags:
+  Add:
+  # 系統標準庫的包含路徑 (從 gcc -E -v -xc++ /dev/null 輸出獲得)
+  - -I/usr/include/c++/11                  # C++ 標準庫主目錄
+  - -I/usr/include/x86_64-linux-gnu/c++/11 # 平台相關標準庫目錄
+  - -I/usr/include/c++/11/backward         # 與舊版本兼容的頭文件
+  - -I/usr/lib/gcc/x86_64-linux-gnu/11/include # GCC 提供的額外頭文件
+  - -I/usr/local/include                   # 用戶本地安裝的系統庫
+  - -I/usr/include/x86_64-linux-gnu        # 平台相關的系統庫
+  - -I/usr/include                         # 系統通用頭文件
+
+  # 項目的本地頭文件路徑
+  - -Iinclude                              # 項目根目錄的 include 文件夾
+  - -I../include                           # 項目上層目錄的 include 文件夾
+  - -I../../include                        # 項目上兩層目錄的 include 文件夾
+
