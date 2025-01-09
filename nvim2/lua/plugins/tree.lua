@@ -30,13 +30,11 @@ return {
 			vim.keymap.set('n', '<C-d>', api.tree.change_root_to_node,   opts('Down')) -- 進入子目錄
 			vim.keymap.set('n', '?',     api.tree.toggle_help,          opts('Help'))
 
-			vim.keymap.set('n', '<leader>r', '<C-w>l', opts('Focus Right Window'))
+			-- vim.keymap.set('n', '<leader>r', '<C-w>l', opts('Focus Right Window'))
 
 
 		end
 
-
-		vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
 		vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true, desc = "Toggle NvimTree" })
 
 
@@ -48,6 +46,8 @@ return {
 			view = {
 				adaptive_size = true, -- 自動調整檔案樹寬度
 				-- width = 30, -- 檔案樹寬度
+				number = false,          -- 啟用絕對行號
+				relativenumber = true,  -- 啟用相對行號
 			},
 			renderer = {
 				group_empty = true, -- 將空目錄分組
@@ -55,11 +55,18 @@ return {
 			filters = {
 				-- dotfiles = true, -- 過濾隱藏檔案
 			},
+			actions = {
+				open_file = {
+					window_picker = {
+						enable = false, -- 禁用窗口选择器，直接在当前窗口打开文件
+					},
+				},
+			},
 		})
 
 
 		-- 修改分隔線顏色
-            vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", { fg = "#ffffff", bg = "NONE", bold = true })
+		vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", { fg = "#ffffff", bg = "NONE", bold = true })
 
 	end,
 }

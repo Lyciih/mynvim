@@ -97,7 +97,9 @@ return {
 					"--background-index",
 					"--clang-tidy",
 					"--completion-style=detailed",
-					"--compile-commands-dir=.","--query-driver=/usr/bin/g++,/usr/bin/gcc"
+					"--compile-commands-dir=.",
+					"--query-driver=/usr/bin/g++,/usr/bin/gcc",
+					-- "--ignore-unknown-flags"
 				},
 				filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp" },
 				root_dir = lspconfig.util.root_pattern("compile_commands.json", ".git", "CMakeLists.txt"),
@@ -200,6 +202,17 @@ return {
 				}, {
 						{ name = "cmdline" },
 					}),
+			})
+		end,
+	},
+	-- 6. lsp lines
+	{
+		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		config = function()
+			require("lsp_lines").setup()
+			-- 禁用默認虛擬文本，以避免與 lsp_lines 冲突
+			vim.diagnostic.config({
+				virtual_text = false,
 			})
 		end,
 	},

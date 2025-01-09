@@ -36,9 +36,21 @@ return {
                             ["ic"] = "@class.inner",
                         },
                     },
-                },
-            })
-        end,
-    },
+				},
+				refactor = {
+					smart_rename = {
+						enable = true,
+						keymaps = {
+							smart_rename = "<leader>trn", -- Treesitter 重命名
+						},
+					},
+				},
+			})
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-refactor",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+	},
 }
 

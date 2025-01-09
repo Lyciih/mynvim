@@ -41,19 +41,25 @@ return {
             vim.api.nvim_set_keymap("n", "<leader>s", "<cmd>lua ToggleSidebarWithDiagnosticsCheck()<CR>", { noremap = true, silent = true })
 
 
-            -- 自動打開或關閉側邊欄的功能
-            local function toggle_sidebar_based_on_diagnostics()
-                local diagnostics = vim.diagnostic.get()
-                if #diagnostics > 0 then
-                    if not sidebar.is_open() then
-                        sidebar.open()
-                    end
-                else
-                    if sidebar.is_open() then
-                        sidebar.close()
-                    end
-                end
-            end
+			-- 自動打開或關閉側邊欄的功能
+			local function toggle_sidebar_based_on_diagnostics()
+				local diagnostics = vim.diagnostic.get()
+				if #diagnostics > 0 then
+					-- 確保在允許的上下文中執行
+					if not sidebar.is_open() then
+						vim.schedule(function()
+							sidebar.open()
+						end)
+					end
+				else
+					if sidebar.is_open() then
+						vim.schedule(function()
+							sidebar.close()
+						end)
+					end
+				end
+			end
+
 
             -- 監聽診斷信息變更事件
             vim.api.nvim_create_autocmd({ "DiagnosticChanged", "BufEnter" }, {

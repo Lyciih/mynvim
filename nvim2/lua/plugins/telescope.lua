@@ -9,7 +9,7 @@ return {
             vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
             vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
             vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-			vim.keymap.set("n", "gd", builtin.lsp_definitions, { noremap = true, silent = true })
+			vim.keymap.set("n", '<leader>fd', builtin.lsp_definitions, { noremap = true, silent = true })
 
 
             require('telescope').setup({
@@ -38,6 +38,14 @@ return {
             vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = "#aa00ff", bg = "NONE", bold = true })
 			vim.api.nvim_set_hl(0, "TelescopePromptCounter", { fg = "#ffaa00", bg = "NONE", bold = true })
         end,
-    }
+    },
+	{
+        "nvim-telescope/telescope-live-grep-args.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim" },
+        config = function()
+            require("telescope").load_extension("live_grep_args")
+        end,
+		keys = { { "<leader>fa", function() require("telescope").extensions.live_grep_args.live_grep_args() end, desc = "Live Grep with Args" } },
+    },
 }
 

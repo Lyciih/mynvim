@@ -12,7 +12,7 @@ return {
 					show_buffer_close_icons = true, -- 顯示關閉按鈕
 					show_close_icon = false, -- 隱藏整體關閉按鈕
 					show_tab_indicators = true, -- 顯示標籤指示符
-					always_show_bufferline = false, -- 總是顯示 bufferline，即使只有一個 buffer
+					always_show_bufferline = true, -- 總是顯示 bufferline，即使只有一個 buffer
 					indicator = {
 						icon = '', -- 不需要圖標
 						style = 'underline', -- 使用下劃線作為指示器樣式

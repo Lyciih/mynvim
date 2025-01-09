@@ -21,7 +21,7 @@ return {
             palettes = {
                 -- 自定義主題的調色板
                 carbonfox = {
-                    -- 你可以在這裡自定義其他顏色
+                    -- 你可以在這裡針對不同主題自定義特定顏色
                     -- comment = "#FF8800",  -- 設置註釋顏色為橙色
                 },
             },
@@ -39,7 +39,14 @@ return {
         })
 
         -- 必須在設置後加載主題
+
+        -- vim.cmd("colorscheme nightfox")
+        -- vim.cmd("colorscheme dayfox")
+        -- vim.cmd("colorscheme dawnfox")
+        -- vim.cmd("colorscheme duskfox")
+        -- vim.cmd("colorscheme nordfox")
         vim.cmd("colorscheme terafox")
+        -- vim.cmd("colorscheme carbonfox")
     end
 }
 
