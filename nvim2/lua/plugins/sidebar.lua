@@ -2,10 +2,18 @@ return {
     {
         "sidebar-nvim/sidebar.nvim",
         config = function()
-            local sidebar = require("sidebar-nvim")
+			local sidebar = require("sidebar-nvim")
 
-            -- 初始化側邊欄設置
-            sidebar.setup({
+			-- 只改變 sidebar.nvim 的分隔線顏色
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "SidebarNvim",
+				callback = function()
+					vim.cmd("highlight WinSeparator guifg=#ffffff guibg=NONE") -- 設定 sidebar 分隔線顏色為紅色
+				end,
+			})
+
+			-- 初始化側邊欄設置
+			sidebar.setup({
                 open = false, -- 默認不打開
                 side = "right", -- 設置側邊欄顯示在右側
                 sections = { "diagnostics" }, -- 設置顯示的部分

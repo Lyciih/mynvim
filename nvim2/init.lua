@@ -1,5 +1,12 @@
 require("config.lazy")
 
+
+
+require("luasnip").config.setup({
+    enable_jsregexp = true,
+})
+
+
 -- 設置縮排為 4 個空格
 vim.o.tabstop = 4        -- 設置 Tab 字符的寬度為 4
 vim.o.shiftwidth = 4     -- 設置自動縮排的寬度為 4
