@@ -21,7 +21,9 @@ return {
 					"html",
 					"cssls",
 					"intelephense",
-					"glsl_analyzer",
+					-- glsl 的 lsp 改用手動安裝的 glslls
+					-- https://github.com/svenstaro/glsl-language-server
+					-- lspconfig 設定方式 https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#glslls 
 					"bashls",
 				},
 			})
@@ -107,14 +109,24 @@ return {
 				on_attach = on_attach,
 			})
 
+
+
 			-- 配置 GLSL LSP
-			lspconfig.glsl_analyzer.setup({
-				capabilities = capabilities,
-				cmd = { "glsl_analyzer" },
-				filetypes = { "glsl", "vert", "frag", "geom" },
-				root_dir = lspconfig.util.root_pattern(".git", vim.fn.getcwd()),
-				on_attach = on_attach,
+			require('lspconfig').glslls.setup({
+				cmd = { "glslls", "--stdin" }, -- 使用官方推薦的啟動方式
+				capabilities = {
+					offsetEncoding = { "utf-8", "utf-16" },
+					textDocument = {
+						completion = {
+							editsNearCursor = true
+						}
+					}
+				},
+				filetypes = { "glsl", "vert", "tesc", "tese", "frag", "geom", "comp" },
+				single_file_support = true,
 			})
+
+
 
 			-- 配置 HTML LSP
 			lspconfig.html.setup({

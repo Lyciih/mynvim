@@ -1,3 +1,21 @@
+
+vim.filetype.add({
+  extension = {
+    glsl = "glsl",
+    vert = "glsl",
+    frag = "glsl",
+    geom = "glsl",
+    comp = "glsl",
+  }
+})
+
+
+
+
+
+
+
+
 require("config.lazy")
 
 
@@ -5,6 +23,12 @@ require("config.lazy")
 require("luasnip").config.setup({
     enable_jsregexp = true,
 })
+
+
+
+
+
+
 
 
 -- 設置縮排為 4 個空格
