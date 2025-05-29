@@ -16,7 +16,7 @@ return {
 				ensure_installed = {
 					"lua_ls",
 					"pyright",
-					"ts_ls", -- 使用 ts_ls
+					-- "ts_ls", -- 使用 ts_ls
 					"clangd",
 					"html",
 					"cssls",

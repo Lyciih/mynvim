@@ -1,5 +1,4 @@
 return {
-	-- 安裝 lualine
 	"nvim-lualine/lualine.nvim",
 	dependencies = { 'kyazdani42/nvim-web-devicons' },  -- 顯示圖標
 	config = function()

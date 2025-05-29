@@ -1,46 +1,51 @@
 return {
+    {
+        "nvim-telescope/telescope.nvim",
+        version = "*",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            local builtin = require('telescope.builtin')
+
+            vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+            vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+            vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+			vim.keymap.set("n", '<leader>fd', builtin.lsp_definitions, { noremap = true, silent = true })
+
+
+            require('telescope').setup({
+                defaults = {
+                    -- 調整外框樣式
+                    layout_config = {
+                        prompt_position = "top",
+                    },
+                    sorting_strategy = "ascending",
+                    borderchars = {
+                        prompt = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
+                        results = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
+                        preview = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
+                    },
+                    winblend = 0, -- 設置透明度
+                },
+            })
+
+            -- 自訂 Telescope 高亮群組的顏色
+            -- vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = "#ffffff", bg = "NONE" })
+            vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = "#ffffff", bg = "NONE" })
+            vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = "#ffffff", bg = "NONE" })
+            vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = "#ffffff", bg = "NONE" })
+			vim.api.nvim_set_hl(0, "TelescopePromptTitle", { fg = "#ffaa00", bg = "NONE", bold = true })
+            vim.api.nvim_set_hl(0, "TelescopeResultsTitle", { fg = "#00ffaa", bg = "NONE", bold = true })
+            vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = "#aa00ff", bg = "NONE", bold = true })
+			vim.api.nvim_set_hl(0, "TelescopePromptCounter", { fg = "#ffaa00", bg = "NONE", bold = true })
+        end,
+    },
 	{
-		'nvim-telescope/telescope.nvim',
-		tag = '0.1.8', -- 版本標籤
-		dependencies = { 'nvim-lua/plenary.nvim' }, -- 依賴項
-
-		config = function()
-			-- 載入 Telescope 的內建函數
-			local builtin = require('telescope.builtin')
-
-			-- 設置快捷鍵
-			vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-			vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-			--vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-			--vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
-		end,
-	},
-
-	-- 安裝文件瀏覽擴展
-	{
-		'nvim-telescope/telescope-file-browser.nvim',
-		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-		config = function()
-			require("telescope").setup {
-				extensions = {
-					file_browser = {
-						theme = "ivy", -- 可選：設置文件瀏覽的主題風格
-						hijack_netrw = true, -- 可選：取代 netrw
-					},
-				},
-			}
-			-- 加載 Telescope 的文件瀏覽擴展
-			require("telescope").load_extension "file_browser"
-
-
-			-- 快捷鍵綁定
-			vim.api.nvim_set_keymap(
-			'n',
-			'<leader>fb',
-			':Telescope file_browser<CR>',
-			{ noremap = true, silent = true }
-			)
-		end
-	}
+        "nvim-telescope/telescope-live-grep-args.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim" },
+        config = function()
+            require("telescope").load_extension("live_grep_args")
+        end,
+		keys = { { "<leader>fa", function() require("telescope").extensions.live_grep_args.live_grep_args() end, desc = "Live Grep with Args" } },
+    },
 }
 
