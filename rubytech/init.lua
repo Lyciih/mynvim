@@ -45,7 +45,7 @@ vim.pack.add({
 	'https://github.com/nvim-telescope/telescope.nvim',
 	'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
 	-- toggleterm
-	'htps://github.com/akinsho/toggleterm.nvim',
+	'https://github.com/akinsho/toggleterm.nvim',
 	-- nvim-tree
 	'https://github.com/nvim-tree/nvim-tree.lua',
 	-- lualine
