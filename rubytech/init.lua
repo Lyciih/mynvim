@@ -1,4 +1,22 @@
 
+--[[
+-- use clipboard osc52 when ssh (nvim install in server) --------------------------
+vim.g.clipboard = {
+  name = "osc52",
+  copy = {
+    ["+"] = function(lines, _)
+      require("vim.ui.clipboard.osc52").copy("+")(lines)
+    end,
+    ["*"] = function(lines, _)
+      require("vim.ui.clipboard.osc52").copy("*")(lines)
+    end,
+  },
+  paste = {
+    ["+"] = function() return {} end,
+    ["*"] = function() return {} end,
+  },
+}
+]]
 
 -- hover present time -------------------------------------------------------------
 vim.o.updatetime = 300
