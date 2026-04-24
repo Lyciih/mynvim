@@ -1,22 +1,33 @@
 
---[[
--- use clipboard osc52 when ssh (nvim install in server) --------------------------
-vim.g.clipboard = {
-  name = "osc52",
-  copy = {
-    ["+"] = function(lines, _)
-      require("vim.ui.clipboard.osc52").copy("+")(lines)
-    end,
-    ["*"] = function(lines, _)
-      require("vim.ui.clipboard.osc52").copy("*")(lines)
-    end,
-  },
-  paste = {
-    ["+"] = function() return {} end,
-    ["*"] = function() return {} end,
-  },
-}
-]]
+-- use clipboard osc52 only when ssh ---------------------------------------------
+local function is_ssh()
+  return vim.env.SSH_TTY ~= nil
+      or vim.env.SSH_CONNECTION ~= nil
+      or vim.env.SSH_CLIENT ~= nil
+end
+
+if is_ssh() then
+  vim.g.clipboard = {
+    name = "osc52",
+    copy = {
+      ["+"] = function(lines, _)
+        require("vim.ui.clipboard.osc52").copy("+")(lines)
+      end,
+      ["*"] = function(lines, _)
+        require("vim.ui.clipboard.osc52").copy("*")(lines)
+      end,
+    },
+    paste = {
+      ["+"] = function()
+        return {}
+      end,
+      ["*"] = function()
+        return {}
+      end,
+    },
+  }
+end
+
 
 -- hover present time -------------------------------------------------------------
 vim.o.updatetime = 300
@@ -339,22 +350,24 @@ cmp.setup.cmdline(':', {
 require('trouble').setup({
 	opt = {},
 	cmd = "Trouble",
-	--[[
+	
 	preview = {
     type = "float",
     relative = "editor",
     border = "rounded",
     title = "Preview",
     title_pos = "center",
-    position = { 0.3, 0.5 }, -- (row, col)
+    position = { 0.3, 0.8 }, -- (row, col)
     size = { width = 0.4, height = 0.4 },
     zindex = 200,
-	]]
+	
+	--[[
 	preview = {
     type = "split",
     relative = "win",
     position = "right",
     size = 0.3,
+	]]
   },
 })
 
@@ -418,24 +431,32 @@ vim.keymap.set('n', '<C-Up>', '<C-w>+')
 vim.keymap.set('n', '<C-Down>', '<C-w>-')
 vim.keymap.set('n', '<C-Left>', '<C-w><')
 vim.keymap.set('n', '<C-Right>', '<C-w>>')
-
 vim.keymap.set("n", "<leader>n", toggle_number, { silent = true })
 
+-- telescope
 local telescope_builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files)
 vim.keymap.set('n', '<leader>fg', telescope_builtin.live_grep)
 vim.keymap.set('n', '<leader>fb', telescope_builtin.buffers)
+vim.keymap.set("n", "gd", telescope_builtin.lsp_definitions)
+vim.keymap.set("n", "gr", telescope_builtin.lsp_references)
+vim.keymap.set("n", "<leader>fx", telescope_builtin.diagnostics)
+vim.keymap.set("n", "<leader>fs", telescope_builtin.lsp_document_symbols)
+vim.keymap.set("n", "<leader>fl", telescope_builtin.loclist)
+vim.keymap.set("n", "<leader>fq", telescope_builtin.quickfix)
 
+-- toggleterm
+vim.keymap.set({'n', 't'}, '<leader>t', '<cmd>ToggleTerm<CR>')
 
-vim.keymap.set({'n', 't'}, '<C-t>', '<cmd>ToggleTerm<CR>')
-
+-- nvim-tree
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true, desc = "Toggle NvimTree" })
 
+-- trouble
+vim.keymap.set("n", "<leader>qx", "<cmd>Trouble diagnostics toggle<CR>", { silent = true, desc = "Diagnostics (Trouble)" })
+vim.keymap.set("n", "<leader>qb", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", { silent = true, desc = "Buffer Diagnostics (Trouble)" })
+--vim.keymap.set("n", "<leader>xs", "<cmd>Trouble symbols toggle focus=false<CR>", { silent = true, desc = "Symbols (Trouble)" })
+--vim.keymap.set("n", "<leader>xf", "<cmd>Trouble lsp toggle focus=false win.position=right<CR>", { silent = true, desc = "LSP (Trouble)" })
+--vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist toggle<CR>", { silent = true, desc = "Location List (Trouble)" })
+--vim.keymap.set("n", "<leader>xq", "<cmd>Trouble qflist toggle<CR>", { silent = true, desc = "Quickfix List (Trouble)" })
 
 
-vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { silent = true, desc = "Diagnostics (Trouble)" })
-vim.keymap.set("n", "<leader>xb", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", { silent = true, desc = "Buffer Diagnostics (Trouble)" })
-vim.keymap.set("n", "<leader>xs", "<cmd>Trouble symbols toggle focus=false<CR>", { silent = true, desc = "Symbols (Trouble)" })
-vim.keymap.set("n", "<leader>xf", "<cmd>Trouble lsp toggle focus=false win.position=right<CR>", { silent = true, desc = "LSP (Trouble)" })
-vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist toggle<CR>", { silent = true, desc = "Location List (Trouble)" })
-vim.keymap.set("n", "<leader>xq", "<cmd>Trouble qflist toggle<CR>", { silent = true, desc = "Quickfix List (Trouble)" })
