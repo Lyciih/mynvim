@@ -72,7 +72,10 @@ vim.pack.add({
 	-- telescope
 	'https://github.com/nvim-lua/plenary.nvim',	-- dependencies
 	'https://github.com/nvim-telescope/telescope.nvim',
-	'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
+        -- Build required after installation:
+        -- cd ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
+        -- make
+        'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
 	-- toggleterm
 	'https://github.com/akinsho/toggleterm.nvim',
 	-- nvim-tree
