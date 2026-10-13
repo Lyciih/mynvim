@@ -36,7 +36,7 @@ vim.o.updatetime = 300
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
-vim.o.expandtab = false
+vim.o.expandtab = true
 
 -- cursor line & column -----------------------------------------------------------
 vim.opt.cursorline = true
