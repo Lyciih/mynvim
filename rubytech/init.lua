@@ -127,6 +127,9 @@ vim.pack.add({
 
 	-- trouble
 	'https://github.com/folke/trouble.nvim',
+
+	-- clipboard-image
+    'https://github.com/HakonHarnes/img-clip.nvim',
 })
 
 
@@ -398,6 +401,16 @@ require('trouble').setup({
   },
 })
 
+-- img-clip
+require('img-clip').setup({
+    default = {
+        dir_path = "img",
+        file_name = "%Y-%m-%d-%H-%M-%S",
+        relative_to_current_file = true,
+        prompt_for_file_name = false,
+        show_dir_path_in_prompt = false,
+    },
+})
 
 -- lsp config ---------------------------------------------------------------------
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -486,4 +499,15 @@ vim.keymap.set("n", "<leader>qb", "<cmd>Trouble diagnostics toggle filter.buf=0<
 --vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist toggle<CR>", { silent = true, desc = "Location List (Trouble)" })
 --vim.keymap.set("n", "<leader>xq", "<cmd>Trouble qflist toggle<CR>", { silent = true, desc = "Quickfix List (Trouble)" })
 
+-- img-clip
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function(args)
+        vim.keymap.set("n", "<leader>pi", "<cmd>PasteImage<CR>", {
+            buffer = args.buf,
+            silent = true,
+            desc = "Paste clipboard image",
+        })
+    end,
+})
 
