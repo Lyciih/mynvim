@@ -60,6 +60,30 @@ local function toggle_number()
     end
 end
 
+-- folding ------------------------------------------------------------------------
+vim.opt.foldenable = true
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldcolumn = "1"
+vim.opt.foldtext = ""
+
+-- folding color
+vim.api.nvim_set_hl(0, "FoldColumn", {
+    fg = "#f4a261",
+    bg = "NONE",
+})
+
+vim.api.nvim_set_hl(0, "CursorLineFold", {
+    fg = "#00ff87",
+    bg = "NONE",
+})
+
+vim.api.nvim_set_hl(0, "Folded", {
+    fg = "#d966ff",
+    bg = "NONE",
+})
 
 -- close --------------------------------------------------------------------------
 vim.g.loaded_perl_provider = 0
